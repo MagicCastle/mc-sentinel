@@ -9,22 +9,22 @@ This document reports hypotheses regarding the implementation of [mc-sentinel](.
 
 ## Monitored components
 
-### Hardware
+### Instances
 
-Details about the hardware components that need to be monitored.
+Instances are the virtual machines created by a deployment. They are the main components of the infrastructure and are the first failure point to be monitored.
 
 - instances that are tagged `public`, which indicates that they're accessible through internet
-- all instances that have a puppet class `rsyslog::client`, these will forward all their logs to the instances with class `rsyslog::server`
+- all instances that have a puppet class `rsyslog::client`, these will forward all their logs to instances with class `rsyslog::server`
 
 ### Dependencies
 
-Information on the dependencies that should be tracked.
+Information on the dependencies that should be tracked. This includes checking for the presence of libraries, services, and other components that are required for the infrastructure to function properly.
 
 - Puppet
 
 ### Services
 
-List of services that require monitoring.
+List of services that require monitoring. Each service should be checked for availability and proper functioning.
 
 - FreeIPA
 - Fail2ban
