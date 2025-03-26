@@ -19,7 +19,7 @@ Type=simple
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=mc-sentinel
-ExecStart=/usr/bin/python3 /opt/mc-sentinel/mc-sentinel.py
+ExecStart=/opt/mc-sentinel/venv/bin/flask --app /opt/mc-sentinel/mc_sentinel/main.py run --host=0.0.0.0
 
 [Install]
 WantedBy=multi-user.target
