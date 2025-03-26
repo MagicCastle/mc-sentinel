@@ -1,9 +1,13 @@
 #!/bin/bash
 set -e
 
-pip install -r requirements
 
-# Create a service file
+# Install dependencies
+python3 -m venv /opt/mc-sentinel/venv
+source /opt/mc-sentinel/venv/bin/activate
+pip install -r /opt/mc-sentinel/requirements.txt
+
+# Create the service file
 cat >/etc/systemd/system/mc-sentinel.service <<EOF
 [Unit]
 Description=mc-sentinel API
@@ -20,3 +24,7 @@ ExecStart=/usr/bin/python3 /opt/mc-sentinel/mc-sentinel.py
 [Install]
 WantedBy=multi-user.target
 EOF
+
+# Enable and start the service
+systemctl enable mc-sentinel
+systemctl start mc-sentinel
