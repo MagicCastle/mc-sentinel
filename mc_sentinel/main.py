@@ -1,5 +1,6 @@
-from flask import Flask, Response, request
-import shutil
+from flask import Flask, Response
+
+from prometheus_client import CONTENT_TYPE_LATEST, REGISTRY, generate_latest
 
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 
