@@ -21,12 +21,3 @@ def metrics():
     This is the exporter that generate a report based of the latest metrics.
     """
     return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
-
-
-@app.route("/manual-recording")
-def man_recording():
-    """
-    Endpoint to trigger the manual collection of metrics by Collectors.
-    """
-    get_puppet_version()
-    return Response("Manuel recording succeeded")
