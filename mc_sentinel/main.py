@@ -2,23 +2,12 @@ from flask import Flask, Response
 
 from prometheus_client import CONTENT_TYPE_LATEST, REGISTRY, generate_latest
 
-from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
+from mc_sentinel.collector import SentinelCollector
 
 
 app = Flask(__name__)
 
-puppet_status_request = Counter(
-    "puppet_status_request",
-    "Records the number of status request for puppet",
-    labelnames=["state"],
-)
-
-
-def get_puppet_version():
-    if shutil.which("puppet"):
-        puppet_status_request.labels(state="success").inc()
-    else:
-        puppet_status_request.labels(state="failure").inc()
+REGISTRY.register(SentinelCollector())
 
 
 @app.route("/")
