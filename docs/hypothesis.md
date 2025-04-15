@@ -13,14 +13,17 @@ This document reports hypotheses regarding the implementation of [mc-sentinel](.
 
 Instances are the virtual machines created by a deployment. They are the main components of the infrastructure and are the first failure point to be monitored.
 
-- instances that are tagged `public`, which indicates that they're accessible through internet
-- all instances that have a puppet class `rsyslog::client`, these will forward all their logs to instances with class `rsyslog::server`
+- instances that are tagged `public` indicates that they're accessible through internet
+- all instances that have a puppet class `rsyslog::client` will forward all their logs to instances with class `rsyslog::server`
+- instances tagged `puppet` have the puppet server installed and are responsible for the configuration of all other instances
 
 ### Dependencies
 
 Information on the dependencies that should be tracked. This includes checking for the presence of libraries, services, and other components that are required for the infrastructure to function properly.
 
-- Puppet
+- Puppet, configuration language used to configure the instances
+- Puppet Agent, installed on all instances to apply a configuration catalog fetched from the Puppet Server
+- Puppet Server, installed on instances tagged `puppet` to define a catalog of configuration
 
 ### Services
 

@@ -1,3 +1,4 @@
+import subprocess
 from prometheus_client.registry import Collector
 from prometheus_client.core import CounterMetricFamily, GaugeMetricFamily
 from typing import Union
@@ -110,6 +111,31 @@ class SentinelCollector(Collector):
                 )
             return puppetserver_port_poll_success, puppetserver_port_poll_failure
 
+        def puppet_version():
+            """Checks the version of the Puppet agent."""
+            puppet_version = CounterMetricFamily(
+                "puppet_agent_version",
+                "Puppet agent version",
+                labels=["major", "minor", "patch", "version"],
+            )
+            try:
+                version = subprocess.run(
+                    ["/opt/puppetlabs/bin/puppet", "agent", "--version"],
+                    capture_output=True,
+                    text=True,
+                ).stdout.strip()
+                version_parts = version.split(".")
+                if len(version_parts) == 3:
+                    major, minor, patch = version_parts
+                    puppet_version.add_metric([major, minor, patch, version], 1)
+                else:
+                    puppet_version.add_metric([], 0)
+            except Exception as e:
+                print(e)  # Shows what was wrong in `systemctl status`
+                puppet_version.add_metric([], 0)
+            return puppet_version
+
         yield puppet_core_install_directory()
         yield from puppetserver_port_poll()
+        yield puppet_version()
         yield dummy_metric()
