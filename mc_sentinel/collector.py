@@ -37,20 +37,6 @@ class SentinelCollector(Collector):
             Union[CounterMetricFamily, GaugeMetricFamily]: Metrics to be collected.
         """
 
-        def dummy_metric():
-            """Creates a dummy metric for testing purposes.
-
-            Returns:
-                GaugeMetricFamily: A dummy metric for testing purposes.
-            """
-            dummy_metric = GaugeMetricFamily(
-                "dummy_metric",
-                "Dummy metric for testing purposes",
-            )
-
-            dummy_metric.add_metric([], 1)
-            return dummy_metric
-
         def puppet_core_install_directory():
             """Checks if the Puppet core install directory exists.
 
@@ -138,4 +124,3 @@ class SentinelCollector(Collector):
         yield puppet_core_install_directory()
         yield from puppetserver_port_poll()
         yield puppet_version()
-        yield dummy_metric()
