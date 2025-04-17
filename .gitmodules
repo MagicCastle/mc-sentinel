@@ -1,0 +1,3 @@
+[submodule "tinystatus"]
+	path = tinystatus
+	url = https://github.com/MagicCastle/tinystatus.git
