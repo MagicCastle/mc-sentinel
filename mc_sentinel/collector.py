@@ -100,8 +100,8 @@ class SentinelCollector(Collector):
         def puppet_version():
             """Checks the version of the Puppet agent."""
             puppet_version = CounterMetricFamily(
-                "puppet_agent_version",
-                "Puppet agent version",
+                "puppet_version",
+                "Puppet version",
                 labels=["major", "minor", "patch", "version"],
             )
             try:
