@@ -117,7 +117,9 @@ class SentinelCollector(Collector):
                 else:
                     puppet_version.add_metric([], 0)
             except Exception as e:
-                print(e)  # Shows what was wrong in `systemctl status`
+                print(
+                    "And error occurred looking for Puppet: " + str(e)
+                )  # Shows what was wrong in `systemctl status`
                 puppet_version.add_metric([], 0)
             return puppet_version
 
